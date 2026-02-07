@@ -1,0 +1,14 @@
+name = "Walgo Whitepaper"
+license = "MIT"
+licenselink = "https://github.com/ganbitlabs/walgo-whitepaper/blob/main/LICENSE"
+description = "An academic-style whitepaper theme for blockchain projects. Deploy your whitepaper on-chain via Walrus."
+homepage = "https://github.com/ganbitlabs/walgo-whitepaper"
+min_version = "0.112.0"
+
+[author]
+  name = "Walgo"
+  homepage = "https://github.com/ganbitlabs/walgo-whitepaper"
+
+[params]
+  features = ["dark mode", "sidebar navigation", "scroll spy", "reading progress", "section numbering", "copy to clipboard", "responsive", "print styles", "walrus-optimized"]
+  tags = ["blockchain", "web3", "whitepaper", "documentation", "academic", "dark", "walrus", "sui"]

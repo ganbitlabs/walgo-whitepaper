@@ -1,0 +1,61 @@
+<aside class="wp-sidebar" id="sidebar" role="navigation" aria-label="Table of contents">
+  <nav class="wp-sidebar__nav">
+    {{- if site.Menus.whitepaper }}
+    <ul class="wp-sidebar__list">
+      {{- range site.Menus.whitepaper }}
+      <li class="wp-sidebar__item">
+        <a href="{{ .URL | relURL }}" class="wp-sidebar__link{{ if eq $.RelPermalink .URL }} wp-sidebar__link--active{{ end }}">
+          {{ .Name }}
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+    {{- else }}
+    {{/* Auto-generate from whitepaper section pages */}}
+    {{- $wpSection := site.GetPage "/whitepaper" }}
+    {{- with $wpSection }}
+    <ul class="wp-sidebar__list">
+      {{- range .Pages.ByWeight }}
+      <li class="wp-sidebar__item">
+        <a href="{{ .RelPermalink }}" class="wp-sidebar__link{{ if eq $.RelPermalink .RelPermalink }} wp-sidebar__link--active{{ end }}">
+          {{ .Title }}
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+    {{- end }}
+    {{- end }}
+    {{/* Full Document View link */}}
+    {{- if ne .Site.Params.showFullDocumentView false }}
+    {{- $wpSection := site.GetPage "/whitepaper" }}
+    {{- with $wpSection }}
+    <div class="wp-sidebar__divider"></div>
+    <ul class="wp-sidebar__list">
+      <li class="wp-sidebar__item">
+        <a href="{{ .RelPermalink }}" class="wp-sidebar__link wp-sidebar__link--full-doc{{ if eq $.RelPermalink .RelPermalink }} wp-sidebar__link--active{{ end }}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Full Document
+        </a>
+      </li>
+    </ul>
+    {{- end }}
+    {{- end }}
+    {{/* Appendix section */}}
+    {{- $appendix := site.GetPage "/appendix" }}
+    {{- with $appendix }}
+    {{- if .Pages }}
+    <div class="wp-sidebar__divider"></div>
+    <ul class="wp-sidebar__list">
+      {{- range .Pages.ByWeight }}
+      <li class="wp-sidebar__item">
+        <a href="{{ .RelPermalink }}" class="wp-sidebar__link{{ if eq $.RelPermalink .RelPermalink }} wp-sidebar__link--active{{ end }}">
+          {{ .Title }}
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+    {{- end }}
+    {{- end }}
+  </nav>
+</aside>
+<div class="wp-sidebar-overlay" id="sidebar-overlay"></div>

@@ -1,0 +1,154 @@
+baseURL = "/"
+title = "Walgo"
+languageCode = "en-us"
+theme = "walgo-whitepaper"
+
+canonifyURLs = false
+relativeURLs = false
+enableRobotsTXT = true
+
+# Whitepaper is a single document — disable unneeded features
+disableKinds = ["taxonomy", "term", "RSS"]
+
+[pagination]
+  pagerSize = 1000
+
+[outputs]
+  home = ["HTML"]
+  section = ["HTML"]
+  page = ["HTML"]
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = false
+  [markup.highlight]
+    noClasses = false
+    lineNos = true
+    guessSyntax = true
+    style = "github-dark"
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+
+[build]
+  useResourceCacheWhen = "fallback"
+
+# =============================================================================
+# Theme Parameters — all fields are optional with sensible defaults
+# =============================================================================
+[params]
+  # --- Identity ---
+  projectName = "Walgo"
+  tagline = "Markdown to Web3, Simplified"
+  logo = "/favicon.svg"
+  favicon = "/favicon.svg"
+
+  # --- Document info ---
+  version = "0.3.3"
+  date = "2026-02-06"
+  authors = ["Walgo Contributors"]
+  license = "MIT"
+
+  # --- Cover page ---
+  coverLogo = "/github_walgo.png"
+  coverLogoHeight = "120px"          # Cover logo max-height (default: 80px)
+  ctaText = "Read Whitepaper"
+  abstractTitle = "Abstract"
+
+  # --- Appearance ---
+  defaultTheme = "dark"
+  accentColor = "#7C5CFC"
+  customFonts = true
+  fontFamily = "Inter"
+  monoFont = "JetBrains Mono"
+
+  # --- Feature toggles ---
+  showReadingTime = true
+  showLastUpdated = true
+  showSectionNumbers = true
+  showProgressBar = true
+  showFullDocumentView = true
+
+  # --- Social links ---
+  github = "https://github.com/selimozten/walgo"
+  website = "https://walgo.xyz"
+  twitter = "https://x.com/yourhandle"
+  discord = "https://discord.gg/yourserver"
+  telegram = "https://t.me/yourchannel"
+  youtube = "https://youtube.com/@yourchannel"
+  linkedin = "https://linkedin.com/company/yourcompany"
+  reddit = "https://reddit.com/r/yoursubreddit"
+  instagram = "https://instagram.com/yourhandle"
+  medium = "https://medium.com/@yourhandle"
+
+# =============================================================================
+# PDF download (header button)
+# =============================================================================
+[params.pdf]
+  enabled = true
+  url = "/whitepaper.pdf"
+
+# =============================================================================
+# Contract Addresses (footer, with copy button + optional explorer link)
+# =============================================================================
+[params.contracts.sui]
+  label = "Sui"
+  address = "0x1234...abcd"
+  explorer = "https://suiscan.xyz/mainnet/object/"
+[params.contracts.ethereum]
+  label = "ETH"
+  address = "0xabcd...1234"
+  explorer = "https://etherscan.io/address/"
+
+# =============================================================================
+# Menu (sidebar navigation)
+# =============================================================================
+[menu]
+  [[menu.whitepaper]]
+    name = "Abstract"
+    url = "/whitepaper/01-abstract/"
+    weight = 1
+  [[menu.whitepaper]]
+    name = "Introduction"
+    url = "/whitepaper/02-introduction/"
+    weight = 2
+  [[menu.whitepaper]]
+    name = "Problem"
+    url = "/whitepaper/03-problem/"
+    weight = 3
+  [[menu.whitepaper]]
+    name = "Solution"
+    url = "/whitepaper/04-solution/"
+    weight = 4
+  [[menu.whitepaper]]
+    name = "Architecture"
+    url = "/whitepaper/05-architecture/"
+    weight = 5
+  [[menu.whitepaper]]
+    name = "Storage & Economics"
+    url = "/whitepaper/06-storage-economics/"
+    weight = 6
+  [[menu.whitepaper]]
+    name = "AI Pipeline"
+    url = "/whitepaper/07-ai-pipeline/"
+    weight = 7
+  [[menu.whitepaper]]
+    name = "Desktop Application"
+    url = "/whitepaper/08-desktop/"
+    weight = 8
+  [[menu.whitepaper]]
+    name = "Roadmap"
+    url = "/whitepaper/09-roadmap/"
+    weight = 9
+  [[menu.whitepaper]]
+    name = "Conclusion"
+    url = "/whitepaper/10-conclusion/"
+    weight = 10
+  [[menu.whitepaper]]
+    name = "References"
+    url = "/whitepaper/11-references/"
+    weight = 11

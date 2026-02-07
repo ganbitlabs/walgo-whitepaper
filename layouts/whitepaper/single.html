@@ -1,0 +1,50 @@
+{{ define "main" }}
+<article class="wp-article">
+  <header class="wp-article__header">
+    {{- if ne .Site.Params.showSectionNumbers false }}
+    {{- partial "section-number.html" . }}
+    {{- end }}
+    <h1 class="wp-article__title">{{ .Title }}</h1>
+    {{- partial "meta.html" . }}
+  </header>
+
+  {{/* Inline ToC for mobile */}}
+  {{- partial "toc-inline.html" . }}
+
+  <div class="wp-article__body">
+    {{ .Content }}
+  </div>
+
+  {{/* Prev / Next navigation */}}
+  {{- $pages := .CurrentSection.Pages.ByWeight }}
+  {{- $currentIndex := -1 }}
+  {{- range $i, $p := $pages }}
+    {{- if eq $p.RelPermalink $.RelPermalink }}
+      {{- $currentIndex = $i }}
+    {{- end }}
+  {{- end }}
+
+  {{- if ge $currentIndex 0 }}
+  <nav class="wp-nav" aria-label="Section navigation">
+    {{- if gt $currentIndex 0 }}
+    {{- $prev := index $pages (sub $currentIndex 1) }}
+    <a href="{{ $prev.RelPermalink }}" class="wp-nav__link wp-nav__link--prev">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="wp-nav__title">{{ $prev.Title }}</span>
+    </a>
+    {{- else }}
+    <span class="wp-nav__spacer"></span>
+    {{- end }}
+
+    {{- $nextIndex := add $currentIndex 1 }}
+    {{- if lt $nextIndex (len $pages) }}
+    {{- $next := index $pages $nextIndex }}
+    <a href="{{ $next.RelPermalink }}" class="wp-nav__link wp-nav__link--next">
+      <span class="wp-nav__title">{{ $next.Title }}</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    {{- end }}
+  </nav>
+  {{- end }}
+</article>
+{{ end }}

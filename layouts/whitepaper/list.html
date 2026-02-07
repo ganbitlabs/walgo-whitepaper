@@ -1,0 +1,32 @@
+{{ define "main" }}
+<article class="wp-article">
+  <header class="wp-article__header">
+    <h1 class="wp-article__title">{{ .Site.Params.projectName | default .Site.Title }}</h1>
+    {{- with .Site.Params.tagline }}
+    <p class="wp-article__tagline">{{ . }}</p>
+    {{- end }}
+  </header>
+
+  {{/* Table of contents */}}
+  <nav class="wp-toc-inline wp-toc-inline--visible">
+    <div class="wp-toc-inline__title">Table of Contents</div>
+    <ul class="wp-toc-inline__list">
+      {{- range .Pages.ByWeight }}
+      <li><a href="#section-{{ .Weight }}">{{ with .Weight }}{{ . }}. {{ end }}{{ .Title }}</a></li>
+      {{- end }}
+    </ul>
+  </nav>
+
+  {{/* Render all sections */}}
+  {{- range .Pages.ByWeight }}
+  <section class="wp-full-doc__section" id="section-{{ .Weight }}">
+    <h2 class="wp-full-doc__section-title">
+      {{- with .Weight }}{{ . }}. {{ end }}{{ .Title -}}
+    </h2>
+    <div class="wp-article__body">
+      {{ .Content }}
+    </div>
+  </section>
+  {{- end }}
+</article>
+{{ end }}

@@ -1,0 +1,89 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ with .Title }}{{ . }} — {{ end }}{{ .Site.Params.projectName | default .Site.Title }}</title>
+<meta name="description" content="{{ .Description | default (.Site.Params.tagline | default "") }}">
+{{- $favicon := .Site.Params.favicon | default "/favicon.svg" }}
+<link rel="icon" href="{{ $favicon | relURL }}" type="image/svg+xml">
+
+{{/* Open Graph */}}
+<meta property="og:title" content="{{ with .Title }}{{ . }} — {{ end }}{{ .Site.Params.projectName | default .Site.Title }}">
+<meta property="og:description" content="{{ .Description | default (.Site.Params.tagline | default "") }}">
+{{- $ogLogo := .Site.Params.coverLogo | default .Site.Params.logo }}
+{{- with $ogLogo }}
+<meta property="og:image" content="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | absURL }}{{ end }}">
+{{- end }}
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="article">
+
+{{/* Twitter Card */}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ with .Title }}{{ . }} — {{ end }}{{ .Site.Params.projectName | default .Site.Title }}">
+<meta name="twitter:description" content="{{ .Description | default (.Site.Params.tagline | default "") }}">
+{{- with $ogLogo }}
+<meta name="twitter:image" content="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | absURL }}{{ end }}">
+{{- end }}
+
+{{/* CSS — single bundle */}}
+{{- $css := resources.Get "css/main.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+
+{{/* Inline theme restore — runs before paint to prevent flash */}}
+<script>
+(function(){var t=localStorage.getItem("walgo-whitepaper-theme");if(t)document.documentElement.setAttribute("data-theme",t)})();
+</script>
+
+{{/* Cover Logo Height */}}
+{{- with .Site.Params.coverLogoHeight }}
+<style>:root { --cover-logo-height: {{ . | safeCSS }}; }</style>
+{{- end }}
+
+{{/* Custom Accent Color — derives all accent variants automatically */}}
+{{- with .Site.Params.accentColor }}
+<style>
+  :root {
+    --accent: {{ . }};
+    --accent-hover: color-mix(in srgb, {{ . }}, white 25%);
+    --accent-muted: color-mix(in srgb, {{ . }}, transparent 85%);
+    --accent-subtle: color-mix(in srgb, {{ . }}, transparent 94%);
+    --border-accent: color-mix(in srgb, {{ . }}, transparent 70%);
+    --glow: color-mix(in srgb, {{ . }}, transparent 93%);
+  }
+  [data-theme="light"] {
+    --accent: {{ $.Site.Params.accentColorLight | default . }};
+    --accent-hover: color-mix(in srgb, {{ $.Site.Params.accentColorLight | default . }}, black 15%);
+    --accent-muted: color-mix(in srgb, {{ $.Site.Params.accentColorLight | default . }}, transparent 85%);
+    --accent-subtle: color-mix(in srgb, {{ $.Site.Params.accentColorLight | default . }}, transparent 94%);
+    --border-accent: color-mix(in srgb, {{ $.Site.Params.accentColorLight | default . }}, transparent 70%);
+    --glow: color-mix(in srgb, {{ $.Site.Params.accentColorLight | default . }}, transparent 93%);
+  }
+</style>
+{{- end }}
+
+{{/* Custom CSS injection */}}
+{{- with .Site.Params.customCSS }}
+<style>{{ . | safeCSS }}</style>
+{{- end }}
+
+{{/* Custom Fonts (opt-in) — loads from Google Fonts or custom URL */}}
+{{- if .Site.Params.customFonts }}
+{{- $sansFont := .Site.Params.fontFamily | default "Inter" -}}
+{{- $monoFont := .Site.Params.monoFont | default "" -}}
+{{- $fontUrl := .Site.Params.fontUrl | default "" -}}
+{{- if $fontUrl }}
+<link rel="stylesheet" href="{{ $fontUrl }}">
+{{- else }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+{{- $families := printf "%s:wght@400;500;600;700;800" (replace $sansFont " " "+") -}}
+{{- with $monoFont }}{{ $families = printf "%s&family=%s:wght@400;500;600;700" $families (replace . " " "+") }}{{ end -}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ $families }}&display=swap">
+{{- end }}
+<style>
+  :root {
+    --font-body: '{{ $sansFont }}', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    {{- with $monoFont }}
+    --font-mono: '{{ . }}', 'SF Mono', 'Cascadia Code', ui-monospace, monospace;
+    {{- end }}
+  }
+</style>
+{{- end }}

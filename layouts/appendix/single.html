@@ -1,0 +1,33 @@
+{{ define "main" }}
+<article class="wp-article">
+  <header class="wp-article__header">
+    <span class="wp-appendix-prefix">Appendix</span>
+    <h1 class="wp-article__title">{{ .Title }}</h1>
+    {{- partial "meta.html" . }}
+  </header>
+
+  {{/* Inline ToC for mobile */}}
+  {{- partial "toc-inline.html" . }}
+
+  <div class="wp-article__body">
+    {{ .Content }}
+  </div>
+
+  {{/* Navigation back to whitepaper */}}
+  <nav class="wp-nav" aria-label="Section navigation">
+    {{- $wpSection := site.GetPage "/whitepaper" }}
+    {{- with $wpSection }}
+    {{- $pages := .Pages.ByWeight.Reverse }}
+    {{- if gt (len $pages) 0 }}
+    {{- $lastPage := index $pages 0 }}
+    {{- with $lastPage }}
+    <a href="{{ .RelPermalink }}" class="wp-nav__link wp-nav__link--prev">
+      <span class="wp-nav__label">Back to</span>
+      <span class="wp-nav__title">{{ .Title }}</span>
+    </a>
+    {{- end }}
+    {{- end }}
+    {{- end }}
+  </nav>
+</article>
+{{ end }}

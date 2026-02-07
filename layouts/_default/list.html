@@ -1,0 +1,12 @@
+{{ define "main" }}
+<article class="wp-article">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  {{ range .Pages.ByWeight }}
+  <div class="wp-list-item">
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </div>
+  {{ end }}
+</article>
+{{ end }}
