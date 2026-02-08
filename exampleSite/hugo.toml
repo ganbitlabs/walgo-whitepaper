@@ -90,7 +90,6 @@ disableKinds = ["taxonomy", "term", "RSS"]
 # =============================================================================
 [params.pdf]
   enabled = true
-  url = "/whitepaper.pdf"
 
 # =============================================================================
 # Contract Addresses (footer, with copy button + optional explorer link)

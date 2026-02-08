@@ -198,4 +198,13 @@
       if (window.innerWidth <= 1024) closeSidebar();
     });
   });
+
+  /* -------------------------------------------------------------------------
+     Auto-Print for PDF — when ?print is in the URL, trigger browser print
+     dialog which allows saving as PDF.
+     ------------------------------------------------------------------------- */
+  if (window.location.search.indexOf("print") !== -1) {
+    /* Small delay to let fonts/styles finish rendering */
+    setTimeout(function () { window.print(); }, 600);
+  }
 })();
