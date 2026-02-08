@@ -14,7 +14,7 @@
     </main>
   </div>
   {{- partial "footer.html" . -}}
-  {{- $js := resources.Get "js/main.js" | minify | fingerprint -}}
-  <script defer src="{{ $js.RelPermalink }}"></script>
+  {{- $js := resources.Get "js/main.js" -}}
+  <script>{{ $js.Content | safeJS }}</script>
 </body>
 </html>

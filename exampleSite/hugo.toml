@@ -21,6 +21,10 @@ disableKinds = ["taxonomy", "term", "RSS"]
 [minify]
   disableXML = true
   minifyOutput = true
+  # ⚠ Do NOT enable CSS minification — Hugo's minifier (tdewolff/minify) breaks
+  # var() spacing in multi-value properties (e.g. "var(--x) 1fr" → "var(--x)1fr").
+  # The walgo optimizer handles CSS minification correctly.
+  disableCSS = true
 
 [markup]
   [markup.goldmark.renderer]
@@ -36,6 +40,29 @@ disableKinds = ["taxonomy", "term", "RSS"]
 
 [build]
   useResourceCacheWhen = "fallback"
+
+# =============================================================================
+# PERFORMANCE NOTES
+#
+# This theme is optimized for Walrus decentralized storage:
+#
+# - CSS + JS are inlined into the HTML (single blob fetch, no external files)
+# - Inter & JetBrains Mono fonts are self-hosted as WOFF2 variable fonts
+#   (no Google Fonts requests). Set disableSelfHostFonts = true to use
+#   Google Fonts CDN, or change fontFamily to any other Google Font.
+# - Images in markdown get loading="lazy" and decoding="async" automatically
+# - Above-fold images (header logo, cover logo) use fetchpriority="high"
+# - Font files are preloaded via <link rel="preload"> in the HTML head
+# - Prefer WebP over PNG/JPG for images (use static/your-image.webp)
+#
+# Bundled font files (in static/fonts/):
+#   inter.woff2           — Inter variable (400-800), ~225 KB
+#   jetbrains-mono.woff2  — JetBrains Mono variable (400-700), ~54 KB
+#
+# To use different fonts, set fontFamily/monoFont to any Google Font name.
+# The theme auto-detects: if the font matches a bundled file, it self-hosts;
+# otherwise it falls back to Google Fonts API.
+# =============================================================================
 
 # =============================================================================
 # Theme Parameters — all fields are optional with sensible defaults
@@ -62,9 +89,16 @@ disableKinds = ["taxonomy", "term", "RSS"]
   # --- Appearance ---
   defaultTheme = "dark"
   accentColor = "#7C5CFC"
+
+  # --- Fonts ---
+  # The theme bundles Inter and JetBrains Mono as local WOFF2 variable fonts
+  # — zero external requests when using these defaults.
+  # Switch to any other Google Font and it loads from fonts.googleapis.com.
   customFonts = true
-  fontFamily = "Inter"
-  monoFont = "JetBrains Mono"
+  fontFamily = "Inter"               # any Google Font (Inter = self-hosted)
+  monoFont = "JetBrains Mono"        # any Google Font mono (JetBrains Mono = self-hosted)
+  # disableSelfHostFonts = true      # force Google Fonts even for Inter/JetBrains Mono
+  # fontUrl = ""                     # custom CSS URL instead of Google Fonts
 
   # --- Feature toggles ---
   showReadingTime = true

@@ -3,7 +3,7 @@
   <div class="wp-cover__inner">
     {{- $coverLogo := .Site.Params.coverLogo | default .Site.Params.logo }}
     {{- with $coverLogo }}
-    <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}" alt="{{ $.Site.Params.projectName | default $.Site.Title }}" class="wp-cover__logo">
+    <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}" alt="{{ $.Site.Params.projectName | default $.Site.Title }}" class="wp-cover__logo" decoding="async" fetchpriority="high">
     {{- end }}
 
     <h1 class="wp-cover__title">{{ .Site.Params.projectName | default .Site.Title }}</h1>

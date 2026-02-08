@@ -2,7 +2,7 @@
   <div class="wp-header__inner">
     <a href="{{ "/" | relURL }}" class="wp-header__brand" aria-label="Home">
       {{- with .Site.Params.logo }}
-      <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}" alt="{{ $.Site.Params.projectName | default $.Site.Title }}" class="wp-header__logo">
+      <img src="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ . | relURL }}{{ end }}" alt="{{ $.Site.Params.projectName | default $.Site.Title }}" class="wp-header__logo" decoding="async" fetchpriority="high">
       {{- end }}
       <span class="wp-header__name">{{ .Site.Params.projectName | default .Site.Title }}</span>
     </a>
