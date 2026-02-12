@@ -2,12 +2,9 @@ baseURL = "/"
 title = "Walgo"
 languageCode = "en-us"
 theme = "walgo-whitepaper"
-
 canonifyURLs = false
 relativeURLs = false
 enableRobotsTXT = true
-
-# Whitepaper is a single document — disable unneeded features
 disableKinds = ["taxonomy", "term", "RSS"]
 
 [pagination]
@@ -21,9 +18,7 @@ disableKinds = ["taxonomy", "term", "RSS"]
 [minify]
   disableXML = true
   minifyOutput = true
-  # ⚠ Do NOT enable CSS minification — Hugo's minifier (tdewolff/minify) breaks
-  # var() spacing in multi-value properties (e.g. "var(--x) 1fr" → "var(--x)1fr").
-  # The walgo optimizer handles CSS minification correctly.
+  # Hugo's CSS minifier breaks var() — walgo handles it
   disableCSS = true
 
 [markup]
@@ -41,105 +36,85 @@ disableKinds = ["taxonomy", "term", "RSS"]
 [build]
   useResourceCacheWhen = "fallback"
 
-# =============================================================================
-# PERFORMANCE NOTES
-#
-# This theme is optimized for Walrus decentralized storage:
-#
-# - CSS + JS are inlined into the HTML (single blob fetch, no external files)
-# - Inter & JetBrains Mono fonts are self-hosted as WOFF2 variable fonts
-#   (no Google Fonts requests). Set disableSelfHostFonts = true to use
-#   Google Fonts CDN, or change fontFamily to any other Google Font.
-# - Images in markdown get loading="lazy" and decoding="async" automatically
-# - Above-fold images (header logo, cover logo) use fetchpriority="high"
-# - Font files are preloaded via <link rel="preload"> in the HTML head
-# - Prefer WebP over PNG/JPG for images (use static/your-image.webp)
-#
-# Bundled font files (in static/fonts/):
-#   inter.woff2           — Inter variable (400-800), ~225 KB
-#   jetbrains-mono.woff2  — JetBrains Mono variable (400-700), ~54 KB
-#
-# To use different fonts, set fontFamily/monoFont to any Google Font name.
-# The theme auto-detects: if the font matches a bundled file, it self-hosts;
-# otherwise it falls back to Google Fonts API.
-# =============================================================================
 
-# =============================================================================
-# Theme Parameters — all fields are optional with sensible defaults
-# =============================================================================
+# ─── Theme Config ────────────────────────────────────────────────────────────
 [params]
-  # --- Identity ---
-  projectName = "Walgo"
-  tagline = "Markdown to Web3, Simplified"
-  logo = "/favicon.svg"
-  favicon = "/favicon.svg"
 
-  # --- Document info ---
+  # ── Identity ─────────────────────────────────────────────────────────────────
+  projectName = "Walgo"
+  tagline     = "Markdown to Web3, Simplified"
+  # local path or "https://..."
+  logo        = "/favicon.svg"
+  favicon     = "/favicon.svg"
+
+  # ── Document Info ────────────────────────────────────────────────────────────
   version = "0.3.3"
-  date = "2026-02-06"
+  date    = "2026-02-06"
   authors = ["Walgo Contributors"]
   license = "MIT"
 
-  # --- Cover page ---
-  coverLogo = "/github_walgo.png"
-  coverLogoHeight = "120px"          # Cover logo max-height (default: 80px)
-  ctaText = "Read Whitepaper"
-  abstractTitle = "Abstract"
+  # ── Cover Page ───────────────────────────────────────────────────────────────
+  # local path or "https://..."
+  coverLogo       = "/github_walgo.png"
+  # max-height (default: 80px)
+  coverLogoHeight = "120px"
+  ctaText         = "Read Whitepaper"
+  abstractTitle   = "Abstract"
 
-  # --- Appearance ---
+  # ── Appearance ───────────────────────────────────────────────────────────────
+  # "dark" or "light"
   defaultTheme = "dark"
-  accentColor = "#7C5CFC"
+  accentColor  = "#7C5CFC"
 
-  # --- Fonts ---
-  # The theme bundles Inter and JetBrains Mono as local WOFF2 variable fonts
-  # — zero external requests when using these defaults.
-  # Switch to any other Google Font and it loads from fonts.googleapis.com.
+  # ── Fonts ────────────────────────────────────────────────────────────────────
+  # Inter & JetBrains Mono are bundled as WOFF2 (zero external requests).
+  # Change to any Google Font name to load from fonts.googleapis.com.
   customFonts = true
-  fontFamily = "Inter"               # any Google Font (Inter = self-hosted)
-  monoFont = "JetBrains Mono"        # any Google Font mono (JetBrains Mono = self-hosted)
-  # disableSelfHostFonts = true      # force Google Fonts even for Inter/JetBrains Mono
-  # fontUrl = ""                     # custom CSS URL instead of Google Fonts
+  fontFamily  = "Inter"
+  monoFont    = "JetBrains Mono"
+  # force Google Fonts even for bundled fonts
+  # disableSelfHostFonts = true
+  # custom CSS URL instead of Google Fonts
+  # fontUrl = ""
 
-  # --- Feature toggles ---
-  showReadingTime = true
-  showLastUpdated = true
-  showSectionNumbers = true
-  showProgressBar = true
+  # ── Feature Toggles ─────────────────────────────────────────────────────────
+  showReadingTime      = true
+  showLastUpdated      = true
+  showSectionNumbers   = true
+  showProgressBar      = true
   showFullDocumentView = true
 
-  # --- Social links ---
-  github = "https://github.com/selimozten/walgo"
-  website = "https://walgo.xyz"
-  twitter = "https://x.com/yourhandle"
-  discord = "https://discord.gg/yourserver"
-  telegram = "https://t.me/yourchannel"
-  youtube = "https://youtube.com/@yourchannel"
-  linkedin = "https://linkedin.com/company/yourcompany"
-  reddit = "https://reddit.com/r/yoursubreddit"
+  # ── Social Links ─────────────────────────────────────────────────────────────
+  github    = "https://github.com/selimozten/walgo"
+  website   = "https://walgo.xyz"
+  twitter   = "https://x.com/yourhandle"
+  discord   = "https://discord.gg/yourserver"
+  telegram  = "https://t.me/yourchannel"
+  youtube   = "https://youtube.com/@yourchannel"
+  linkedin  = "https://linkedin.com/company/yourcompany"
+  reddit    = "https://reddit.com/r/yoursubreddit"
   instagram = "https://instagram.com/yourhandle"
-  medium = "https://medium.com/@yourhandle"
+  medium    = "https://medium.com/@yourhandle"
 
-# =============================================================================
-# PDF download (header button)
-# =============================================================================
+
+# ─── PDF Download (header button) ───────────────────────────────────────────
 [params.pdf]
   enabled = true
 
-# =============================================================================
-# Contract Addresses (footer, with copy button + optional explorer link)
-# =============================================================================
+
+# ─── Contract Addresses (footer, copy button + optional explorer link) ───────
 [params.contracts.sui]
-  label = "Sui"
-  address = "0x1234...abcd"
+  label    = "Sui"
+  address  = "0x1234...abcd"
   explorer = "https://suiscan.xyz/mainnet/object/"
+
 [params.contracts.ethereum]
-  label = "ETH"
-  address = "0xabcd...1234"
+  label    = "ETH"
+  address  = "0xabcd...1234"
   explorer = "https://etherscan.io/address/"
 
-# =============================================================================
-# Menu (sidebar navigation)
-# =============================================================================
+
+# ─── Menu (sidebar navigation) ──────────────────────────────────────────────
 [menu]
   [[menu.whitepaper]]
     name = "Abstract"
